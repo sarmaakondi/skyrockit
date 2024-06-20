@@ -35,7 +35,7 @@ app.use(passUserToViews);
 
 app.get("/", (req, res) => {
   if (req.session.user) {
-    res.redirect(`users/${req.session.user._id}/application`);
+    res.redirect(`users/${req.session.user._id}/applications`);
   } else {
     res.render("index.ejs");
   }
@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
 
 app.use("/auth", authController);
 app.use(isLoggedIn);
-app.use("/users/:userID/application", applicationsController);
+app.use("/users/:userID/applications", applicationsController);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title><%= application.title %></title>
+  </head>
+  <body>
+    <%- include('../partials/_navbar.ejs') %>
+    <!-- application title and company -->
+    <h1><%= application.title %> at <%= application.company %></h1>
+
+    <!-- notes -->
+    <% if (application.notes) { %>
+    <p>Notes: <%= application.notes %></p>
+    <% } %>
+
+    <!-- job posting link -->
+    <% if (application.postingLink) { %>
+    <a href="<%= application.postingLink %>" target="_blank"
+      >View job posting</a
+    >
+    <% } %>
+
+    <!-- application current status -->
+    <p>
+      Current Status: <%= application.status[0].toUpperCase() +
+      application.status.slice(1) %>
+    </p>
+  </body>
+</html>

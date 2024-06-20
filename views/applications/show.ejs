@@ -29,6 +29,11 @@
       + application.status.slice(1) %>
     </p>
 
+    <!-- edit application -->
+    <a href="/users/<%= user._id %>/applications/<%= application._id %>/edit">
+      Edit Application
+    </a>
+
     <form
       action="/users/<%= user._id %>/applications/<%= application._id %>?_method=DELETE"
       method="post"

@@ -7,6 +7,9 @@ const methodOverride = require("method-override");
 const morgan = require("morgan");
 const session = require("express-session");
 
+const isLoggedIn = require("./middleware/isLoggedIn.js");
+const passUserToViews = require("./middleware/passUserToViews.js");
+
 const authController = require("./controllers/auth.js");
 const applicationsController = require("./controllers/applications.js");
 
@@ -28,15 +31,19 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use(passUserToViews);
 
 app.get("/", (req, res) => {
-  res.render("index.ejs", {
-    user: req.session.user,
-  });
+  if (req.session.user) {
+    res.redirect(`users/${req.session.user._id}/application`);
+  } else {
+    res.render("index.ejs");
+  }
 });
 
 app.use("/auth", authController);
-app.use("/users/application", applicationsController);
+app.use(isLoggedIn);
+app.use("/users/:userID/application", applicationsController);
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
